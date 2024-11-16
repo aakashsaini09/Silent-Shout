@@ -1,6 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-import { Label } from "@/components/ui/label"
 import { FiRefreshCw } from "react-icons/fi";
 import { FaCopy } from "react-icons/fa";
 import { useToast } from "@/hooks/use-toast"
@@ -73,12 +71,7 @@ const Feedbacks = () => {
       const token = localStorage.getItem('token')
       try {    
         const res = await axios.delete(`${BackEndURL}/api/auth/feed/deleteuserfeed`,  
-          {
-            headers: {
-              Authorization: `${token}`,
-              id: id
-            },
-          })
+          { headers: { Authorization: `${token}`, id: id },})
             if (res.data.success) {
               setloading(false)
               toast({ variant: 'default', description: 'Message Deleted Successfully!'})
@@ -120,7 +113,31 @@ const Feedbacks = () => {
     setSelectedFeed(null);
     document.body.classList.remove('no-scroll');
   };
+  const [switchValue, setswitchValue] = useState(false);
 
+    const handleChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log("switchVal: ", switchValue)
+        const isChecked = e.target.checked; 
+        setswitchValue(isChecked); 
+        setloading(true)
+      const token = localStorage.getItem('token')
+      try {    
+        const res = await axios.patch(`${BackEndURL}/api/auth/feed/update`, {accepting: switchValue}, 
+          { headers: { Authorization: `${token}`, id: id },})
+            if (res.data.success) {
+              setloading(false)
+              console.log(res.data)
+              toast({ variant: 'default', description: 'Message updated Successfully!'})
+              getUserFeeds()
+            } else {
+                toast({ variant: 'destructive', description: res.data.message });
+                setloading(false)
+              }
+            } catch (err) {
+              console.log(err)
+              setloading(false)
+            }
+    };
   return (
     <>
      {loading && <div className="min-h-[100vh] w-[100vw] overflow-hidden fixed z-10 bg-gray-900 text-white"><Loading/></div>}
@@ -142,10 +159,13 @@ const Feedbacks = () => {
                 <div className="text-white underline px-2 py-3 rounded-sm text-xl">{userURL}</div>
                 <Button className='text-base bg-purple-600 hover:bg-purple-700 text-white' variant={'secondary'} onClick={copyFunction}>Copy <FaCopy /></Button>
             </div>
-            <div className='flex items-center pt-5'>
-                <Switch id='accept-msg'/>
-                <Label className='text-gray-300 pl-3' htmlFor="accept-msg">Accept Messages: ON</Label>
-            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked={switchValue} onChange={handleChange} className="sr-only peer" />
+                <div className="group peer bg-white rounded-full duration-300 w-16 h-8 ring-2 ring-red-500 after:duration-300 after:bg-red-500 peer-checked:after:bg-green-500 peer-checked:ring-green-500 after:rounded-full after:absolute after:h-6 after:w-6 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-8 peer-hover:after:scale-95"></div>
+                <span className="ml-3 text-gray-100">
+                   Accepting Message {switchValue ? "ON" : "OFF"}
+                </span>
+            </label>
             <div className="py-10">
                 <Button variant="default" size="icon" onClick={getUserFeeds}>
                     <FiRefreshCw />

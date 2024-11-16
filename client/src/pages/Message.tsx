@@ -16,8 +16,8 @@ const Message = () => {
     const sendMessage = async () => {
         setloading(true)
         try {  
-            await axios.post(`${BackEndURL}/api/auth/user/addfeed/${id}`, {title: title})
-            toast({description: "Message Send Successfully" })
+            const res = await axios.post(`${BackEndURL}/api/auth/user/addfeed/${id}`, {title: title})
+            toast({description: res.data.message})
             setloading(false)
             settitle("")
         } catch (error) {

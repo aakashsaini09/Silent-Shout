@@ -68,6 +68,7 @@ feedRoute.post('/getuserfeed', async(c) =>{
 })
 feedRoute.delete('/deleteuserfeed', async(c) =>{
     const id = c.req.header('id')
+    console.log("header is: ", c.req.header)
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
@@ -91,6 +92,45 @@ feedRoute.delete('/deleteuserfeed', async(c) =>{
     } catch (error) {
         return c.json({
             message: "Server Error",
+            success: false,
+            error: error
+        });
+    }
+    
+})
+feedRoute.patch('/update', async(c) =>{
+    const id = c.req.header('id')
+    const body = await c.req.json()
+    console.log("body is: ", body)
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
+    try {
+        const updatedUser = await prisma.user.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                accepting: !body.accepting
+            }
+        })
+        if(!updatedUser) {
+            return c.json({
+                message: "Something went wrong. Please try again",
+                success: false,
+                updatedUser: updatedUser
+            });
+        }
+        
+        return c.json({
+            message: "Updated Successfully",
+            success: true,
+            updatedUser: updatedUser
+        });
+    } catch (error) {
+        console.log("error: ", error)
+        return c.json({
+            message: "Server Error. Please try again",
             success: false,
             error: error
         });
