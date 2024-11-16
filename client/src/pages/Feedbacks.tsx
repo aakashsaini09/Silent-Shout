@@ -30,18 +30,18 @@ const Feedbacks = () => {
     const getUserFeeds = async() => {
         setloading(true)
         const token = localStorage.getItem('token')
+        console.log("id: ", localStorage.getItem('id'), "token: ", token)
         try {    
           // api/auth/feed/getuserfeed
             const res = await axios.post(`${BackEndURL}/api/auth/feed/getuserfeed`, { id: localStorage.getItem('id') }, 
             {
               headers: {
-                Authorization: token
+                Authorization: token,
               }
             })
             console.log("response is: ", res)
             if (res.data.success) {
                 setuserdata(res.data.feeds)
-                // console.log(res.data.feeds)
                 setloading(false)
               } else {
                 toast({ variant: 'destructive', description: res.data.message });

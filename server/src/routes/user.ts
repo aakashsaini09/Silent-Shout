@@ -12,7 +12,8 @@ export const userRoute = new Hono<{
 
 
 userRoute.post('/login', async(c) => {
-    const body = await c.req.json()
+  const body = await c.req.json()
+  console.log("body is: ", body)
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate())

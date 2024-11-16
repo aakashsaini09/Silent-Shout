@@ -36,6 +36,7 @@ feedRoute.use('/*', async(c, next) => {
 
 feedRoute.post('/getuserfeed', async(c) =>{
     const body = await c.req.json()
+    console.log("body is: ", body)
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
@@ -61,7 +62,7 @@ feedRoute.post('/getuserfeed', async(c) =>{
     } catch (error) {
         console.log("error is this: ", error)
         return c.json({
-            message: "Server Error",
+            message: "Server Error!!",
             success: false,
             error: error
         });
