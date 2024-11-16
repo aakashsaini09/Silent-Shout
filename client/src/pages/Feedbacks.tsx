@@ -30,7 +30,6 @@ const Feedbacks = () => {
     const getUserFeeds = async() => {
         setloading(true)
         const token = localStorage.getItem('token')
-        console.log("id: ", localStorage.getItem('id'), "token: ", token)
         try {    
           // api/auth/feed/getuserfeed
             const res = await axios.post(`${BackEndURL}/api/auth/feed/getuserfeed`, { id: localStorage.getItem('id') }, 
@@ -39,7 +38,6 @@ const Feedbacks = () => {
                 Authorization: token,
               }
             })
-            console.log("response is: ", res)
             if (res.data.success) {
                 setuserdata(res.data.feeds)
                 setloading(false)
@@ -77,7 +75,7 @@ const Feedbacks = () => {
         const res = await axios.delete(`${BackEndURL}/api/auth/feed/deleteuserfeed`,  
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `${token}`,
               id: id
             },
           })
@@ -159,12 +157,12 @@ const Feedbacks = () => {
               <img src={noMsgImg} className='mx-auto flex items-center' width={300} alt="" />
               <div className='text-4xl font-bold text-white text-center font-mono'>No Messages Yet!!</div>
             </div> : userdata.slice().reverse().map((feed: any) => {
-                return <div key={feed._id} className="border border-gray-700 mx-4 my-5 min-h-48 rounded-md flex flex-col justify-center pl-5 min-w-80">
+                return <div key={feed.id} className="border border-gray-700 mx-4 my-5 min-h-48 rounded-md flex flex-col justify-center pl-5 min-w-80">
                     <div className='flex justify-between'>
                         <div onClick={() => openFeed(feed)} className="cursor-pointer text-white text-2xl font-semibold mb-6">{feed.title.length > 20 ? `${feed.title.slice(0, 31)}...` : feed.title}</div>
-                        <Button className='text-white hover:text-red-600 mr-3 bg-transparent border border-white hover:bg-transparent ml-2 hover:border-red-600' onClick={() => deleteFeed(feed._id)}><i className="fa-solid fa-trash "></i></Button>
+                        <Button className='text-white hover:text-red-600 mr-3 bg-transparent border border-white hover:bg-transparent ml-2 hover:border-red-600' onClick={() => deleteFeed(feed.id)}><i className="fa-solid fa-trash "></i></Button>
                     </div>
-                    <div className="time font-normal text-gray-400">{formatDate(feed.createdAt)}</div>
+                    <div className="time font-normal text-gray-400">{formatDate(feed.date)}</div>
                 </div>
             })}
       {selectedFeed && (

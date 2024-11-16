@@ -25,7 +25,6 @@ const Login = () => {
     setloading(true)
     try {    
         const res = await axios.post(`${BackEndURL}/api/auth/user/login`, {email: userData.email, password: userData.password})
-        console.log("res is: ", res)
         if (res.data.success) {
             const jwt = res.data.jwt;
             localStorage.setItem("token", jwt)

@@ -8,7 +8,6 @@ import Footer from '@/components/Footer'
 const Landing = () => {
   const {toast} = useToast()
   const [navbarOpen, setNavbarOpen] = useState(false);
-
   const [loading, setloading] = useState(false)
   const url = 'https://silent-shout.netlify.com';
   const copyLinkToClipboard = () => {
@@ -17,26 +16,9 @@ const Landing = () => {
   };
   const [title, settitle] = useState('')
   const BackEndURL = import.meta.env.VITE_APP_BACKEND_URL
-  // const getAllusers = async() => {
-  //   setloading(true)
-  //   try {    
-  //       const res = await axios.get(`${BackEndURL}/api/auth/getall`)
-  //       if (res.data.success) {
-  //         setusers(res.data.users.length)
-  //         console.log(res.data.users.length)
-  //         setloading(false)
-  //       } else {
-  //         toast({ variant: 'destructive', description: res.data.message });
-  //         setloading(false)
-  //       }
-  //     } catch (err) {
-  //       console.log(err)
-  //       setloading(false)
-  //   }
-  // }
   const sendMessage = async (e: any) => {
     e.preventDefault()
-    let id = "672efbcc32518b1efa8e28d5"
+    let id = "14"
     setloading(true)
     try {  
         await axios.post(`${BackEndURL}/api/auth/user/addfeed/${id}`, {title: title})

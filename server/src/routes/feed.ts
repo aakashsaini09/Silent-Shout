@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { decode, verify } from 'hono/jwt';
+import { verify } from 'hono/jwt';
 export const feedRoute = new Hono<{
     Bindings: {
 	DATABASE_URL: string,
@@ -32,18 +32,16 @@ feedRoute.use('/*', async(c, next) => {
             })
     }
 })
-
-
 feedRoute.post('/getuserfeed', async(c) =>{
     const body = await c.req.json()
-    console.log("body is: ", body)
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
     try { 
+
         const feeds = await prisma.feedbacks.findMany({
             where: {
-                authorId: body.id
+                authorId: Number(body.id)
             }
         })
         if(!feeds) {
@@ -68,8 +66,6 @@ feedRoute.post('/getuserfeed', async(c) =>{
         });
     }
 })
-
-
 feedRoute.delete('/deleteuserfeed', async(c) =>{
     const id = c.req.header('id')
     const prisma = new PrismaClient({
@@ -101,23 +97,3 @@ feedRoute.delete('/deleteuserfeed', async(c) =>{
     }
     
 })
-
-
-/*
-export const verifyUser = async(req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    // console.log("Header is: ", req.headers) 
-    if (!token) {
-        return res.status(401).json({ message: 'Access denied. No token provided.'});
-    }
-    try {
-        const decoded = jwt.verify(token, mySecretText);
-        req.user = decoded;
-        next();
-    } catch (err) {
-        console.log(err)
-        return res.status(403).json({ message: 'Invalid token.', success: false, token: token, error: err });
-    }
-}
-*/
