@@ -1,8 +1,7 @@
 <br />
 <div align="center">
   <a href="https://silent-shout.netlify.app">
-  
-  </a>![silent](https://github.com/user-attachments/assets/1375eb01-4bd4-4ce4-85c9-fb3bf3be3492)
+  </a>
 
   <h1 align="center">Silent Shout</h1>
   <p align="center">
