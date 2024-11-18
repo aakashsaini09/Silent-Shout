@@ -113,7 +113,7 @@ const Feedbacks = () => {
     setSelectedFeed(null);
     document.body.classList.remove('no-scroll');
   };
-  const [switchValue, setswitchValue] = useState(false);
+  const [switchValue, setswitchValue] = useState(true);
 
     const handleChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
       console.log("switchVal: ", switchValue)
