@@ -192,7 +192,7 @@ const Feedbacks = () => {
             <h2 className="text-3xl font-bold mb-4">{selectedFeed.title}</h2>
             <p className="text-lg mb-6">{selectedFeed.description}</p>
             <div className="text-gray-400 font-normal">
-                {formatDate(selectedFeed.createdAt)}
+                {formatDate(selectedFeed.date)}
             </div>
         </div>
     </div>
