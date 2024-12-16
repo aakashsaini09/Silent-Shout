@@ -184,7 +184,7 @@ const Landing = () => {
               <h1 className="mb-9 text-2xl font-semibold text-gray-200">
                 Have Feedback? Share It Anonymously! Directly with Me!
               </h1>
-              <input value={title} onChange={(e)=>{settitle(e.target.value)}} type="text" placeholder='This website is...' name="email" autoComplete="email" className="border border-gray-600 w-1/4 pr-2 pl-2 py-3 mt-2 rounded-md text-white font-semibold hover:border-gray-700 bg-black"/>
+              <input value={title} onChange={(e)=>{settitle(e.target.value)}} type="text" placeholder='This website is...' name="email" autoComplete="email" className="border border-gray-600 w-1/4 py-4 px-3 rounded-md text-white font-semibold hover:border-gray-700 bg-black"/>
               <div className="inline-flex items-center px-7 py-3 mt-2 ml-2 font-medium text-black transition duration-500 ease-in-out transform bg-transparent border rounded-lg bg-white">
                 <button type='submit' className="justify-center" onClick={sendMessage}>Send Feedback</button>
               </div>
