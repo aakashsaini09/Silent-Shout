@@ -50,10 +50,25 @@ const Login = () => {
           setloading(false)
     }
   }
+  const [navbarOpen, setNavbarOpen] = useState(false);
   return (
-    <>
+    <div className='h-[100vh]'>
+      <header className="fixed top-0 w-full clearNav z-50">
+      <div className="max-w-6xl mx-auto flex p-5">
+        <div className="">
+          <a href="/"className="flex text-3xl text-white font-extrabold mb-4 md:mb-0">SILENT SHOUT </a>
+          <button className="text-white pb-4 cursor-pointer leading-none px-3 py-1 md:hidden outline-none focus:outline-none content-end ml-auto" type="button" aria-label="button" onClick={() => setNavbarOpen(!navbarOpen)} >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-menu">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
     {loading && <div className="min-h-[100vh] min-w-[100vw] absolute z-10 bg-gray-900 text-white"><Loading/></div>}
-      <div className='min-h-[100vh] min-w-[100vw] bg-black flex justify-center items-center'>
+      {/* <div className='min-h-[100vh] min-w-[100vw] bg-black flex justify-center items-center'>
         <div className="flex justify-center">
           <div className="w-96 backdrop-blur-lg bg-opacity-80 rounded-lg shadow-lg p-5 bg-gray-900 text-white">
             <h2 className="text-2xl font-bold pb-5">Sign In</h2>
@@ -76,8 +91,31 @@ const Login = () => {
             </form>
           </div>
         </div>
-      </div>
-    </>
+      </div> */}
+<section className="flex h-full justify-center items-center">
+  <div
+    className="w-full bg-white rounded-lg shadow-2xl md:mt-0 sm:max-w-md xl:p-0 dark:bg-zinc-800 ">
+    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+      <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Login Your Account
+      </h1>
+      <form className="space-y-4 md:space-y-6">
+        <div>
+          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your Email</label>
+          <input value={userData.email} onChange={(e) => setuserData({ ...userData, email: e.target.value })} type="email" name="email" id="email" className="bg-gray-50 py-3 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-900 border-none outline-none dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Johndoe@gmail.com" required/>
+        </div>
+        <div>
+          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+          <input value={userData.password} onChange={(e) => setuserData({ ...userData, password: e.target.value })} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 py-3 border-none outline-none text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-900 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
+        </div>
+        <button onClick={loginfunction} type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 mb-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700">Create an account</button>
+        <Link to={'/signup'} className="text-sm font-light text-gray-500 dark:text-gray-400 pt-4">Don't have an account? <a
+            className="font-medium text-blue-600 hover:underline dark:text-blue-500" href="/signin">Sign up here</a>
+        </Link>
+      </form>
+    </div>
+  </div>
+</section>
+    </div>
   )
 }
 

@@ -8,7 +8,7 @@ import Footer from '@/components/Footer'
 const Landing = () => {
   const {toast} = useToast()
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const [loading, setloading] = useState(false)
+  const [loading, setloading] = useState(true)
   const url = 'https://silent-shout.netlify.com';
   const copyLinkToClipboard = () => {
     navigator.clipboard.writeText(url)
@@ -46,7 +46,7 @@ const Landing = () => {
 // https://silent-shout.netlify.appmessage/672efbcc32518b1efa8e28d5
   return (
     <>
-    {loading && <div className="min-h-[100vh] min-w-[100vw] absolute z-10 bg-gray-900 text-white"><Loading/></div>}
+    {loading && <div className="h-[100vh] w-full overflow-y-hidden absolute z-10 bg-gray-900 text-white"><Loading/></div>}
     <header className="fixed top-0 w-full clearNav z-50">
       <div className="max-w-6xl mx-auto flex justify-between p-5 ">
         <div className="">
