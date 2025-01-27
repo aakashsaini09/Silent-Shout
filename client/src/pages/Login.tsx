@@ -84,7 +84,7 @@ const Login = () => {
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
           <input value={userData.password} onChange={(e) => setuserData({ ...userData, password: e.target.value })} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 py-3 border-none outline-none text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-900 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required/>
         </div>
-        <button onClick={loginfunction} type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 mb-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700">Create an account</button>
+        <button onClick={loginfunction} type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 mb-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700">Login</button>
         <Link to={'/signup'} className="text-sm font-light text-gray-500 dark:text-gray-400 pt-4">Don't have an account? <a
             className="font-medium text-blue-600 hover:underline dark:text-blue-500" href="/signin">Sign up here</a>
         </Link>
